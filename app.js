@@ -1,15 +1,28 @@
-let pronoun = ["the", "our", "a"];
-let adj = ["great", "big", "beautiful", "creapy", "nasty"];
-let noun = ["jogger", "racoon", "car", "pizza", "burguer", "thief"];
-let dom = [".com", ".org", ".es", ".net", ".xyz"];
+let pronouns = ["a", "the", "your"];
+let adjs = ["great", "adventurous", "arrogant"];
+let nouns = ["sitcom", "lotus", "cubes", "planet"];
+let doms = [".com", ".us", ".es", ".net", ".shop"];
+let domain = "";
 
 function generateDomainNames(pronounArr, adjArr, nounArr, domArr) {
   let domainNames = [];
-  for (let i = 0; i < pronounArr.length; i++) {
-    for (let x = 0; x < adjArr.length; x++) {
-      for (let y = 0; y < nounArr.length; y++) {
-        for (let z = 0; z < domArr.length; z++) {
-          let domain = pronounArr[i] + adjArr[x] + nounArr[y] + domArr[z];
+  for (let pronoun = 0; pronoun < pronounArr.length; pronoun++) {
+    for (let adj = 0; adj < adjArr.length; adj++) {
+      for (let noum = 0; noum < nounArr.length; noum++) {
+        for (let dom = 0; dom < domArr.length; dom++) {
+          if (
+            (adjArr[adj].charAt(0) === "a" ||
+              adjArr[adj].charAt(0) === "e" ||
+              adjArr[adj].charAt(0) === "i" ||
+              adjArr[adj].charAt(0) === "o" ||
+              adjArr[adj].charAt(0) === "u") &&
+            pronounArr[pronoun] === "a"
+          ) {
+            domain = "an" + adjArr[adj] + nounArr[noum] + domArr[dom];
+          } else {
+            domain =
+              pronounArr[pronoun] + adjArr[adj] + nounArr[noum] + domArr[dom];
+          }
           domainNames.push(domain);
         }
       }
@@ -17,5 +30,5 @@ function generateDomainNames(pronounArr, adjArr, nounArr, domArr) {
   }
   return domainNames;
 }
-let domainNames = generateDomainNames(pronoun, adj, noun, dom);
+let domainNames = generateDomainNames(pronouns, adjs, nouns, doms);
 console.log(domainNames);
