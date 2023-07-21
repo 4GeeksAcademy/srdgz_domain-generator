@@ -19,6 +19,19 @@ function generateDomainNames(pronounArr, adjArr, nounArr, domArr) {
             pronounArr[pronoun] === "a"
           ) {
             domain = "an" + adjArr[adj] + nounArr[noum] + domArr[dom];
+          } else if (
+            (nounArr[noum].endsWith("com") ||
+              nounArr[noum].endsWith("us") ||
+              nounArr[noum].endsWith("es") ||
+              nounArr[noum].endsWith("net")) &&
+            (domArr[dom] === ".com" ||
+              domArr[dom] === ".us" ||
+              domArr[dom] === ".es" ||
+              domArr[dom] === ".net")
+          ) {
+            let newDomain = nounArr[noum].slice(0, 3);
+            domain =
+              pronounArr[pronoun] + adjArr[adj] + newDomain + domArr[dom];
           } else {
             domain =
               pronounArr[pronoun] + adjArr[adj] + nounArr[noum] + domArr[dom];
