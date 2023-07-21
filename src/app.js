@@ -28,11 +28,9 @@ function generateDomainNames(pronounArr, adjArr, nounArr, extArr) {
             pronounArr[pronoun] === "a"
           ) {
             domain = "an" + adjArr[adj] + nounArr[noun] + extArr[ext];
-          } else if (nounArr[noun].endsWith(extArr[ext].slice(1))) {
-            let newDomain = nounArr[noun].slice(
-              0,
-              nounArr[noun].length - extArr[ext].length - 1
-            );
+          } else if (nounArr[noun].endsWith(extArr[ext].substr(1))) {
+            let num = nounArr[noun].length - extArr[ext].length - 1;
+            let newDomain = nounArr[noun].substr(0, num);
             domain =
               pronounArr[pronoun] + adjArr[adj] + newDomain + extArr[ext];
           } else {
