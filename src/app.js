@@ -5,37 +5,38 @@ import "./style.css";
 import "./assets/img/rigo-baby.jpg";
 import "./assets/img/4geeks.ico";
 
-window.onload = function() {};
 //write your code here
 let pronouns = ["a", "the", "your"];
 let adjs = ["great", "adventurous", "arrogant"];
 let nouns = ["sitcom", "lotus", "cubes", "planet"];
 let extensions = [".com", ".us", ".es", ".net", ".shop"];
-let domain = "";
 
 function generateDomainNames(pronounArr, adjArr, nounArr, extArr) {
   let domainNames = [];
-  for (let pronoun = 0; pronoun < pronounArr.length; pronoun++) {
-    for (let adj = 0; adj < adjArr.length; adj++) {
-      for (let noun = 0; noun < nounArr.length; noun++) {
-        for (let ext = 0; ext < extArr.length; ext++) {
+  for (let pronoun of pronounArr) {
+    for (let adj of adjArr) {
+      for (let noun of nounArr) {
+        for (let ext of extArr) {
+          let domain;
           if (
-            (adjArr[adj].charAt(0) === "a" ||
-              adjArr[adj].charAt(0) === "e" ||
-              adjArr[adj].charAt(0) === "i" ||
-              adjArr[adj].charAt(0) === "o" ||
-              adjArr[adj].charAt(0) === "u") &&
-            pronounArr[pronoun] === "a"
+            "aeiou".includes(adj.charAt(0).toLowerCase()) &&
+            pronoun === "a"
           ) {
-            domain = "an" + adjArr[adj] + nounArr[noun] + extArr[ext];
-          } else if (nounArr[noun].endsWith(extArr[ext].substr(1))) {
-            let num = nounArr[noun].length - extArr[ext].length - 1;
-            let newDomain = nounArr[noun].substr(0, num);
-            domain =
-              pronounArr[pronoun] + adjArr[adj] + newDomain + extArr[ext];
+            domain = "an" + adj;
+            if (noun.endsWith(ext.substr(1))) {
+              let num = noun.length - (ext.length - 1);
+              domain += noun.substr(0, num) + ext;
+            } else {
+              domain += noun + ext;
+            }
           } else {
-            domain =
-              pronounArr[pronoun] + adjArr[adj] + nounArr[noun] + extArr[ext];
+            domain = pronoun + adj;
+            if (noun.endsWith(ext.substr(1))) {
+              let num = noun.length - (ext.length - 1);
+              domain += noun.substr(0, num) + ext;
+            } else {
+              domain += noun + ext;
+            }
           }
           domainNames.push(domain);
         }
@@ -44,7 +45,6 @@ function generateDomainNames(pronounArr, adjArr, nounArr, extArr) {
   }
   return domainNames;
 }
-
 const displayDomainNames = () => {
   const generatedDomains = generateDomainNames(
     pronouns,
@@ -55,5 +55,5 @@ const displayDomainNames = () => {
   const outputDiv = document.getElementById("output");
   outputDiv.innerHTML = generatedDomains.join("<br>");
 };
-const generateButton = document.getElementById("generatorBttn");
+const generateButton = document.getElementById("generateButton");
 generateButton.addEventListener("click", displayDomainNames);
